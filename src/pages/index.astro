@@ -1,16 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
 
+// Read the home page content
+const homeContent = await import('../content/home.md');
+const { title, description, hero_image } = homeContent.frontmatter;
+const { Content } = homeContent;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={title}>
+  <main>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    {hero_image && <img src={hero_image} alt="Hero image" />}
+    <Content />
+  </main>
+</Layout>
