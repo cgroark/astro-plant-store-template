@@ -1,18 +1,139 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Read the home page content
-const homeContent = await import('../content/home.md');
-const { title, description, hero_image } = homeContent.frontmatter;
-const { Content } = homeContent;
+// Import all sections
+const heroContent = await import('../content/sections/hero.md');
+const aboutContent = await import('../content/sections/about.md');
+
+const hero = heroContent.frontmatter;
+const about = aboutContent.frontmatter;
 ---
 
-<Layout title={title}>
-  <main>
-    <h1>{title}</h1>
-    <p>{description}</p>
-    {hero_image && <img src={hero_image} alt="Hero image" />}
-    <Content />
-  </main>
+<Layout title={hero.title}>
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-title">
+			<h1>{hero.title}</h1>
+			<div>
+				<h2>{hero.subtitle}</h2>
+				<hr>
+				<p>{hero.description}</p>
+			</div>
+		</div>
+		<div class="background-cover-image"
+			style={hero.background_image ? `background-image: url(${hero.background_image})`  : ''}
+		>
+		</div>
+
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+		<div class="about-title">
+    	<h2>{about.title}</h2>
+			<hr>
+			<aboutContent.Content />
+		</div>
+		<div class="fifty-image"
+			style={about.image ? `background-image: url(${about.image})`  : ''}
+		>
+  </section>
 </Layout>
+
+<style>
+	.hero-section {
+		background: #1b262c;
+		display: flex;
+	}
+
+	.hero-title {
+		color: white;
+		padding: 20px;
+		width: 28%;
+		z-index: 2;
+	}
+
+	.hero-title h1 {
+		font-size: 36px;
+		white-space: nowrap;
+	}
+
+	.hero-title h2 {
+		font-size: 42px;
+	}
+
+	.hero-title hr, .about-title hr {
+		height: 6px;
+		background: #4682b4;
+		border: #4682b4;
+		margin: 20px 85px 20px 0;
+	}
+
+	.hero-title div {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 85%;
+	}
+
+	.background-cover-image {
+		width: 72%;
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
+		min-height: 500px;
+	}
+
+	.about-section {
+		display: flex;
+		background-color: #1c3549;
+		color: white;
+		padding: 50px;
+	}
+
+	.about-title {
+		width: 50%;
+		padding-right: 10px;
+	}
+
+	.fifty-image {
+		width: 50%;
+		padding-left: 10px;
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
+	}
+
+	.fifty-image img {
+		width: 100%;
+	}
+
+	@media (max-width: 768px) {
+		.hero-section, .about-section {
+			min-height: 100vh;
+		}
+
+		.hero-title {
+			width: 80%;
+		}
+
+		.hero-title h1 {
+			font-size: 32px;
+		}
+
+		.hero-title h2 {
+			font-size: 36px;
+		}
+
+		.background-cover-image {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 66%;
+			height: 100%;
+			min-height: 100vh;
+		}
+	}
+
+
+</style>
