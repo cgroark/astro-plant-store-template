@@ -1,6 +1,6 @@
 ---
-title: "Welcome to TM Coaching"
-description: "A modern website built with Astro and Netlify CMS"
+title: Welcome to TM Website
+description: A modern website built with Astro and Netlify CMS
 hero_image: ""
 ---
 
