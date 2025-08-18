@@ -61,6 +61,15 @@ collections:
           - { label: "Button Text", name: "ctaText", widget: "string" }
           - { label: "Button Link", name: "cta", widget: "string" }
 
+      - label: "Footer Section"
+        name: "footer"
+        file: "src/content/sections/footer.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Copyright", name: "copyright", widget: "string" }
+          - { label: "Owner", name: "owner", widget: "string" }
+          - { label: "Owner link", name: "ownerLink", widget: "string"}
+
   - name: "navigation"
     label: "Navigation"
     files:
