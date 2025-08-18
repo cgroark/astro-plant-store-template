@@ -504,8 +504,10 @@ const contact = contactContent.frontmatter;
 		}
 
 		.coaching-section {
+			background-attachment: scroll; /* fallback */
 			background-position: center;
-			background-repeat: no-repeat;
+			background-size: cover;
+			height: 100vh;
 		}
 
 		.coaching-section::before {
