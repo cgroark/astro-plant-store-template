@@ -41,15 +41,13 @@ collections:
         name: "methods"
         file: "src/content/sections/methods.md"
         fields:
-          - { label: "Title One", name: "titleOne", widget: "string" }
-          - { label: "Text One", name: "textOne", widget: "string" }
-          - { label: "Image One", name: "imageOne", widget: "image", required: false }
-          - { label: "Title Two", name: "titleTwo", widget: "string" }
-          - { label: "Text Two", name: "textTwo", widget: "string" }
-          - { label: "Image Two", name: "imageTwo", widget: "image", required: false }
-          - { label: "Title Three", name: "titleThree", widget: "string" }
-          - { label: "Text Three", name: "textThree", widget: "string" }
-          - { label: "Image Three", name: "imageThree", widget: "image", required: false }
+        - label: "Method Items"
+          name: "method_items"
+          widget: "list"
+          fields:
+            - {label: "Title", name: "title", widget: "string"}
+            - {label: "Text", name: "text", widget: "string"}
+            - {label: "Image", name: "image", widget: "image", required: false }
 
       - label: "Contact Section"
         name: "contact"

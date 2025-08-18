@@ -83,30 +83,16 @@ const contact = contactContent.frontmatter;
 
 	<!-- Methods Section -->
   <section id="methods" class="methods-section">
-		<div class="method-part">
-			<div class="methods-image"
-			 style={methods.imageOne ? `background-image: url(${methods.imageOne})`  : ''}
-			>
+		{methods.method_items.map(item => (
+			<div class="method-part">
+				<div class="methods-image"
+					style={item.image ? `background-image: url(${item.image})`  : ''}
+					>
+				</div>
+				<h3>{item.title}</h3>
+				<p>{item.text}</p>
 			</div>
-			<h3>{methods.titleOne}</h3>
-			<p>{methods.textOne}</p>
-		</div>
-		<div class="method-part">
-			<div class="methods-image"
-			 style={methods.imageTwo ? `background-image: url(${methods.imageTwo})`  : ''}
-			>
-			</div>
-			<h3>{methods.titleTwo}</h3>
-			<p>{methods.textTwo}</p>
-		</div>
-		<div class="method-part">
-			<div class="methods-image"
-			 style={methods.imageThree ? `background-image: url(${methods.imageThree})`  : ''}
-			>
-			</div>
-			<h3>{methods.titleThree}</h3>
-			<p>{methods.textThree}</p>
-		</div>
+		))}
   </section>
 
 	<!-- Contact Section -->
