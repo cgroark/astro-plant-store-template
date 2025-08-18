@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-image: "/images/rocks.jpg"
+image: "/images/stones.jpg"
 ---
 
 Like many busy professionals, I noticed a decline in my energy levels after 40, affecting performance in virtually every area of my life.

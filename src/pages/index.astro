@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {PhoneOutgoingIcon, WhatsappLogoIcon, EnvelopeIcon, MegaphoneIcon} from '@phosphor-icons/react';
+import {PhoneOutgoingIcon, WhatsappLogoIcon, EnvelopeIcon} from '@phosphor-icons/react';
 
 // Import all sections
 const heroContent = await import('../content/sections/hero.md');
@@ -25,6 +25,13 @@ const contact = contactContent.frontmatter;
 				<h2>{hero.subtitle}</h2>
 				<hr>
 				<p>{hero.description}</p>
+				<a
+					class="cta-button hero"
+					href={hero.cta}
+					target="_blank"
+				>
+					{hero.ctaText}
+				</a>
 			</div>
 		</div>
 		<div class="background-cover-image"
@@ -112,7 +119,6 @@ const contact = contactContent.frontmatter;
 			href={contact.cta}
 			target="_blank"
 		>
-			<MegaphoneIcon size={32} />
 			{contact.ctaText}
 		</a>
   </section>
@@ -126,18 +132,21 @@ const contact = contactContent.frontmatter;
 
 	.hero-title {
 		color: rgb(249, 244, 218);
-		padding: 20px;
+		padding: 20px 50px;
 		width: 28%;
 		z-index: 2;
 	}
 
-	.hero-title h1 {
-		font-size: 36px;
+	h1 {
+		font-size: 54px;
+		color: rgb(249, 244, 218);
 		white-space: nowrap;
+		margin-bottom: 30px;
 	}
 
 	.hero-title h2, .about-title h2 {
 		font-size: 42px;
+		white-space: nowrap;
 	}
 
 	.hero-title hr, .about-title hr {
@@ -165,12 +174,11 @@ const contact = contactContent.frontmatter;
 	.about-section, .methods-section {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: stretch;
 		gap: 10px;
 		background-color: #1c3549;
 		color: rgb(249, 244, 218);
-		padding: 50px;
-		min-height: 60vh;
+		padding: 70px 50px;
 	}
 
 	.about-title {
@@ -182,10 +190,6 @@ const contact = contactContent.frontmatter;
 		background-size: cover;
 		background-position: 40% center;
 		background-repeat: no-repeat;
-	}
-
-	.about-image img {
-		width: 100%;
 	}
 
 .coaching-section {
@@ -266,7 +270,7 @@ const contact = contactContent.frontmatter;
 }
 
 .contact-content {
-	justify-content: space-between;
+	justify-content: center;
 	display: flex;
 	flex-wrap: wrap;
 	max-width: 700px;
@@ -280,7 +284,7 @@ const contact = contactContent.frontmatter;
 	color: rgb(249, 244, 218);
 	text-decoration: none;
 	margin-bottom: 10px;
-	padding-bottom: 5px;
+	padding: 5px 10px;
 	border-bottom: 2px solid transparent;
 	transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
@@ -292,7 +296,7 @@ const contact = contactContent.frontmatter;
 
 .cta-button {
 	background: #4682b4;
-	border: solid 2px rgb(249, 244, 218);
+	border: solid 2px transparent;
 	padding: 10px 10px;
 	color: rgb(249, 244, 218);
 	text-decoration: none;
@@ -303,11 +307,16 @@ const contact = contactContent.frontmatter;
 	display: flex;
 	align-items: center;
 	gap: 5px;
-	transition: background 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 .cta-button:hover {
 	background: #23435e;
+	border: solid 2px rgb(249, 244, 218);
+}
+
+.cta-button.hero {
+	margin: 40px 0;
 }
 
 	@media (max-width: 768px) {
@@ -316,15 +325,17 @@ const contact = contactContent.frontmatter;
 		}
 
 		.hero-title {
-			width: 80%;
+			width: 90%;
+			padding: 20px;
 		}
 
 		.hero-title h1 {
-			font-size: 32px;
+			font-size: 44px;
 		}
 
 		.hero-title h2, .about-title h2 {
 			font-size: 36px;
+			white-space: normal;
 		}
 
 		.background-cover-image {
@@ -341,8 +352,12 @@ const contact = contactContent.frontmatter;
 		}
 
 		.about-title {
-			padding: 20px 10px;
+			padding: 40px 10px;
 			width: 90%;
+		}
+
+		.about-image {
+			min-height: 60vh;
 		}
 
 		.coaching-section::before {

@@ -29,3 +29,36 @@ collections:
           - { label: "Section Title", name: "title", widget: "string" }
           - { label: "Content", name: "body", widget: "markdown" }
           - { label: "Image", name: "image", widget: "image", required: false }
+
+      - label: "Coaching Section"
+        name: "coaching"
+        file: "src/content/sections/coaching.md"
+        fields:
+          - { label: "Content", name: "body", widget: "markdown" }
+          - { label: "Background Image", name: "image", widget: "image", required: false }
+
+      - label: "Methods Section"
+        name: "methods"
+        file: "src/content/sections/methods.md"
+        fields:
+          - { label: "Title One", name: "titleOne", widget: "string" }
+          - { label: "Text One", name: "textOne", widget: "string" }
+          - { label: "Image One", name: "imageOne", widget: "image", required: false }
+          - { label: "Title Two", name: "titleTwo", widget: "string" }
+          - { label: "Text Two", name: "textTwo", widget: "string" }
+          - { label: "Image Two", name: "imageTwo", widget: "image", required: false }
+          - { label: "Title Three", name: "titleThree", widget: "string" }
+          - { label: "Text Three", name: "textThree", widget: "string" }
+          - { label: "Image Three", name: "imageThree", widget: "image", required: false }
+
+      - label: "Contact Section"
+        name: "contact"
+        file: "src/content/sections/contact.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Phone Number", name: "phoneString", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Button Text", name: "ctaText", widget: "string" }
+          - { label: "Button Link", name: "cta", widget: "string" }
+
+
