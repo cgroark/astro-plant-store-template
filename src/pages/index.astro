@@ -8,6 +8,8 @@ const aboutContent = await import('../content/sections/about.md');
 const coachingContent = await import ('../content/sections/coaching.md');
 const methodsContent = await import('../content/sections/methods.md');
 const contactContent = await import('../content/sections/contact.md');
+const navContent = await import('../content/navigation/main.md');
+const navigation = navContent.frontmatter;
 
 const hero = heroContent.frontmatter;
 const about = aboutContent.frontmatter;
@@ -17,6 +19,22 @@ const contact = contactContent.frontmatter;
 ---
 
 <Layout title={hero.title}>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <ul class="nav-links">
+				<li>
+				<a href="#hero" class="logo-nav">
+					<img src={navigation.logo} />
+					</a>
+				</li>
+        {navigation.nav_items.map(item => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
   <!-- Hero Section -->
   <section id="hero" class="hero-section">
     <div class="hero-title">
@@ -38,7 +56,6 @@ const contact = contactContent.frontmatter;
 			style={hero.background_image ? `background-image: url(${hero.background_image})`  : ''}
 		>
 		</div>
-
   </section>
 
   <!-- About Section -->
@@ -124,6 +141,58 @@ const contact = contactContent.frontmatter;
   </section>
 </Layout>
 
+<!-- Script goes OUTSIDE of Layout component -->
+<script>
+  // Handle active nav item on scroll
+  function updateActiveNav() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navHeight = document.querySelector('.main-nav')?.offsetHeight || 80;
+
+    let current = '';
+    const scrollPosition = window.scrollY + navHeight + 100;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    if (window.scrollY < 100) {
+      current = 'hero';
+    }
+
+    // Always clear all active states first, regardless of focus
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+
+    // Then set the correct active state based on scroll position
+    if (current) {
+      const activeLink = document.querySelector(`.nav-links a[href="#${current}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+    }
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', updateActiveNav);
+</script>
+
 <style>
 	.hero-section {
 		background: #1b262c;
@@ -132,7 +201,7 @@ const contact = contactContent.frontmatter;
 
 	.hero-title {
 		color: rgb(249, 244, 218);
-		padding: 20px 50px;
+		padding: 60px 50px 20px;
 		width: 28%;
 		z-index: 2;
 	}
@@ -192,132 +261,212 @@ const contact = contactContent.frontmatter;
 		background-repeat: no-repeat;
 	}
 
-.coaching-section {
-	position: relative;
-	padding: 50px;
-	background-size: cover;
-	background-position: 40% center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	min-height: 50vh;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	min-height: 70vh;
-}
+	.coaching-section {
+		position: relative;
+		padding: 50px;
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		min-height: 50vh;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		min-height: 70vh;
+	}
 
-.coaching-section::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
-	z-index: 1;
-}
+	.coaching-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+		z-index: 1;
+	}
 
-.coaching-content {
-	position: relative;
-	z-index: 2;
-	max-width: 460px;
-	color: rgb(249, 244, 218);
-}
+	.coaching-content {
+		position: relative;
+		z-index: 2;
+		max-width: 460px;
+		color: rgb(249, 244, 218);
+	}
 
-.method-part {
-	text-align: center;
-	width: 31%;
-}
+	.method-part {
+		text-align: center;
+		width: 31%;
+	}
 
-.method-part h3 {
-	margin-bottom: 10px;
-}
+	.method-part h3 {
+		margin-bottom: 10px;
+	}
 
-.methods-image {
-	background-size: cover;
-	background-position: 40% center;
-	background-repeat: no-repeat;
-	height: 128px;
-	width: 128px;
-	border-radius: 50%;
-	margin: auto;
-	margin-bottom: 25px;
-	transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
-}
+	.methods-image {
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
+		height: 128px;
+		width: 128px;
+		border-radius: 50%;
+		margin: auto;
+		margin-bottom: 25px;
+		transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
 
-.methods-image:hover {
-	transform: scale(1.1);
-}
+	.methods-image:hover {
+		transform: scale(1.1);
+	}
 
-.contact-section {
-	padding: 70px 20px 50px 20px;
-	background-color: #1b262c;
-	min-height: 60vh;
-}
+	.contact-section {
+		padding: 70px 20px 50px 20px;
+		background-color: #1b262c;
+		min-height: 100vh;
+	}
 
-.contact-section h2 {
-	font-size: 36px;
-	text-align: center;
-	color: rgb(249, 244, 218);
-}
+	.contact-section h2 {
+		font-size: 36px;
+		text-align: center;
+		color: rgb(249, 244, 218);
+	}
 
-.contact-section hr {
-	height: 6px;
-	background: #4682b4;
-	border: #4682b4;
-	width: 30%;
-	margin: 25px auto;
-}
+	.contact-section hr {
+		height: 6px;
+		background: #4682b4;
+		border: #4682b4;
+		width: 30%;
+		margin: 25px auto;
+	}
 
-.contact-content {
-	justify-content: center;
-	display: flex;
-	flex-wrap: wrap;
-	max-width: 700px;
-	margin: auto;
-}
+	.contact-content {
+		justify-content: center;
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 700px;
+		margin: auto;
+	}
 
-.contact-content div a {
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	color: rgb(249, 244, 218);
-	text-decoration: none;
-	margin-bottom: 10px;
-	padding: 5px 10px;
-	border-bottom: 2px solid transparent;
-	transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
-}
+	.contact-content div a {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		color: rgb(249, 244, 218);
+		text-decoration: none;
+		margin-bottom: 10px;
+		padding: 5px 10px;
+		transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
 
-.contact-content div a:hover {
-	border-bottom: 2px solid #4682b4;
-	transform: scale(1.1);
-}
+	.contact-content div a:hover {
+		transform: scale(1.1);
+	}
 
-.cta-button {
-	background: #4682b4;
-	border: solid 2px transparent;
-	padding: 10px 10px;
-	color: rgb(249, 244, 218);
-	text-decoration: none;
-	display: block;
-	margin: 20px auto;
-	width: fit-content;
-	border-radius: 5px;
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
-}
+	.contact-content a::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #4682b4;
+		transition: width 0.3s ease;
+	}
 
-.cta-button:hover {
-	background: #23435e;
-	border: solid 2px rgb(249, 244, 218);
-}
+	.contact-content a:hover::after {
+		width: 100%;
+	}
 
-.cta-button.hero {
-	margin: 40px 0;
-}
+	.cta-button {
+		background: #4682b4;
+		border: solid 2px transparent;
+		padding: 10px 10px;
+		color: rgb(249, 244, 218);
+		text-decoration: none;
+		display: block;
+		margin: 20px auto;
+		width: fit-content;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+	}
+
+	.cta-button:hover {
+		background: #23435e;
+		border: solid 2px rgb(249, 244, 218);
+	}
+
+	.cta-button.hero {
+		margin: 40px 0;
+	}
+
+	.main-nav {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		background: rgba(27, 38, 44, 0.45);
+		backdrop-filter: blur(10px);
+		z-index: 1000;
+		transition: all 0.3s ease;
+	}
+
+	.nav-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		padding: 1rem 2rem;
+	}
+
+	.nav-links {
+		display: flex;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		gap: 1rem;
+	}
+
+	.nav-links a {
+		color: #4682b4;
+		text-decoration: none;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.nav-links a:hover,
+	.nav-links a.active {
+		color: rgb(249, 244, 218);
+	}
+
+	.nav-links a::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #4682b4;
+		transition: width 0.3s ease;
+	}
+
+	.nav-links a:hover::after,
+	.nav-links a.active::after {
+		width: 100%;
+	}
+
+	.logo-nav img {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%
+	}
+
+	.nav-links a.logo-nav::after {
+		bottom: -1px;
+	}
 
 	@media (max-width: 768px) {
 		.hero-section {
@@ -326,7 +475,7 @@ const contact = contactContent.frontmatter;
 
 		.hero-title {
 			width: 90%;
-			padding: 20px;
+			padding: 60px 20px;
 		}
 
 		.hero-title h1 {
@@ -352,7 +501,7 @@ const contact = contactContent.frontmatter;
 		}
 
 		.about-title {
-			padding: 40px 10px;
+			padding: 50px 10px;
 			width: 90%;
 		}
 
@@ -380,10 +529,20 @@ const contact = contactContent.frontmatter;
 			margin-bottom: 40px;
 		}
 
+		.contact-section {
+			height: 100vh;
+		}
+
 		.contact-content {
 			justify-content: center;
 		}
+
+		.nav-container {
+			padding: 10px 20px ;
+		}
+
+		.nav-links a {
+			font-size: 16px;
+		}
 	}
-
-
 </style>

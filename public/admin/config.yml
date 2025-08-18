@@ -61,4 +61,19 @@ collections:
           - { label: "Button Text", name: "ctaText", widget: "string" }
           - { label: "Button Link", name: "cta", widget: "string" }
 
+  - name: "navigation"
+    label: "Navigation"
+    files:
+      - label: "Main Navigation"
+        name: "main-nav"
+        file: "src/content/navigation/main.md"
+        fields:
+          - {label: "Logo", name: "logo", widget: "image"}
+          - label: "Navigation Items"
+            name: "nav_items"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Link", name: "href", widget: "string"}
+
 
