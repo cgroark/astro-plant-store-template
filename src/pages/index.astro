@@ -65,7 +65,9 @@ const contact = contactContent.frontmatter;
 		<div class="about-title">
     	<h2>{about.title}</h2>
 			<hr>
-			<aboutContent.Content />
+			<div class="about-text">
+				<aboutContent.Content />
+			</div>
 		</div>
 		<div class="about-image"
 			style={about.image ? `background-image: url(${about.image})`  : ''}
@@ -128,12 +130,12 @@ const contact = contactContent.frontmatter;
 		</a>
   </section>
 
-		<!-- Footer Section -->
-		<section id="footer" class="footer-section">
-			<h3>{footer.title}</h3>
-			<p>{footer.copyright}</p>
-			<p>{footer.owner} <a href={footer.ownerLink} target="_blank">{footer.ownerSite}</a></p>
-		</section>
+	<!-- Footer Section -->
+	<section id="footer" class="footer-section">
+		<h3>{footer.title}</h3>
+		<p>{footer.copyright}</p>
+		<p>{footer.owner} <a href={footer.ownerLink} target="_blank">{footer.ownerSite}</a></p>
+	</section>
 </Layout>
 
 <script>
@@ -505,6 +507,10 @@ const contact = contactContent.frontmatter;
 			width: 90%;
 		}
 
+		.about-text {
+			font-size: 16px;
+		}
+
 		.about-image {
 			min-height: 60vh;
 		}
@@ -527,6 +533,10 @@ const contact = contactContent.frontmatter;
 		.method-part {
 			width: 100%;
 			margin-bottom: 40px;
+		}
+
+		.method-part p {
+			font-size: 16px;
 		}
 
 		.contact-section {
