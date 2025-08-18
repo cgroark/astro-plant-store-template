@@ -141,57 +141,51 @@ const contact = contactContent.frontmatter;
   </section>
 </Layout>
 
-<!-- Script goes OUTSIDE of Layout component -->
 <script>
-  // Handle active nav item on scroll
-  function updateActiveNav() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const navHeight = document.querySelector('.main-nav')?.offsetHeight || 80;
+(() => {
+  const sections = document.querySelectorAll('section[id]');
+  if (!sections.length) return;
 
-    let current = '';
-    const scrollPosition = window.scrollY + navHeight + 100;
+  const ids = new Set([...sections].map(s => s.id));
 
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
+  const getNavLinks = () =>
+    Array.from(document.querySelectorAll('a[href^="#"]'))
+      .filter(a => ids.has(decodeURIComponent(a.getAttribute('href').slice(1))));
 
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        current = section.getAttribute('id');
+  const clearActive = () => getNavLinks().forEach(a => a.classList.remove('active'));
+  const setActive = (id) => {
+    getNavLinks()
+      .filter(a => decodeURIComponent(a.getAttribute('href').slice(1)) === id)
+      .forEach(a => a.classList.add('active'));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        clearActive();
+        setActive(entry.target.id);
       }
     });
-
-    if (window.scrollY < 100) {
-      current = 'hero';
-    }
-
-    // Always clear all active states first, regardless of focus
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-    });
-
-    // Then set the correct active state based on scroll position
-    if (current) {
-      const activeLink = document.querySelector(`.nav-links a[href="#${current}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-      }
-    }
-  }
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateActiveNav();
-        ticking = false;
-      });
-      ticking = true;
-    }
+  }, {
+    root: null,
+    rootMargin: `-${document.querySelector('.main-nav')?.offsetHeight || 80}px 0px -60% 0px`,
+    threshold: 0.1
   });
 
-  document.addEventListener('DOMContentLoaded', updateActiveNav);
+  sections.forEach(section => observer.observe(section));
+
+  // Prevent "clicked link stays active" bug
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a && ids.has(decodeURIComponent(a.getAttribute('href').slice(1)))) {
+      e.preventDefault(); // allow smooth scroll
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+})();
 </script>
+
+
 
 <style>
 	.hero-section {
@@ -509,15 +503,13 @@ const contact = contactContent.frontmatter;
 			min-height: 60vh;
 		}
 
+		.coaching-section {
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
 		.coaching-section::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%, transparent 100%);
-			z-index: 1;
+			background: linear-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.7));
 		}
 
 		.methods-section {
@@ -544,5 +536,24 @@ const contact = contactContent.frontmatter;
 		.nav-links a {
 			font-size: 16px;
 		}
+
+		.nav-links a:hover {
+			color: #4682b4;
+		}
+
+		.nav-links a:hover::after {
+			background: transparent;
+		}
+
+		.nav-links a.active {
+			color: rgb(249, 244, 218);
+			background: transparent;
+		}
+
+		.nav-links a.active::after {
+			background: #4682b4;
+		}
+
+
 	}
 </style>

@@ -27,27 +27,34 @@ const { title } = Astro.props;
   <body>
     <slot />
 
-    <!-- Add this script to handle identity redirects -->
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-
-        // Handle confirmation and recovery redirects
-        window.netlifyIdentity.on("confirm", () => {
-          document.location.href = "/admin/";
-        });
-
-        window.netlifyIdentity.on("recovery", () => {
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
           document.location.href = "/admin/";
         });
       }
-    </script>
+    });
+
+    window.netlifyIdentity.on("confirm", () => {
+      document.location.href = "/admin/";
+    });
+
+    window.netlifyIdentity.on("recovery", () => {
+      document.location.href = "/admin/";
+    });
+  }
+
+  // Fallback in case the identity widget isn't ready immediately
+  window.addEventListener("load", () => {
+    if (window.location.search.includes("confirmation_token") ||
+        window.location.search.includes("recovery_token")) {
+      document.location.href = "/admin/";
+    }
+  });
+</script>
+
   </body>
 </html>
 
