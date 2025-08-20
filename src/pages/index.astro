@@ -40,7 +40,9 @@ const contact = contactContent.frontmatter;
   <!-- Hero Section -->
   <section id="hero" class="hero-section section"
 	>
-    <div class="hero-title">
+    <div class="hero-title"
+			style={hero.background_image ? `background-image: url(${hero.background_image})`  : ''}
+			>
 			<h1>{hero.title}</h1>
 			<div>
 				<p>{hero.description}</p>
@@ -63,7 +65,7 @@ const contact = contactContent.frontmatter;
 
 		<!-- Parallax Section -->
 		<section  class="parallax-section"
-		style={parallax.image ? `background-image: url(${parallax.image})`  : ''}
+			style={parallax.image ? `background-image: url(${parallax.image})`  : ''}
 		>
 			<div class="parallax-content">
 				<parallaxContent.Content />
@@ -170,7 +172,9 @@ const contact = contactContent.frontmatter;
 		max-width: 460px;
 		margin: auto ;
 		border: solid 4px #fcba28;
-		background-color: #7b5ea6;
+		background-size: cover;
+		background-position: 40% center;
+		background-repeat: no-repeat;
 		border-radius: 10px;
 		box-shadow: 8px 8px 0 #15aa93;
 	}
@@ -186,8 +190,11 @@ const contact = contactContent.frontmatter;
 		color: #7b5ea6;
     background: rgb(249, 244, 218);
     padding: 10px 15px;
+		border: 2px solid #f38ba2;
     border-radius: 10px;
     margin-top: 20px;
+		box-shadow: 4px 4px 0 #7b5ea6;
+
 	}
 
 	.hero-title img {
@@ -279,7 +286,7 @@ const contact = contactContent.frontmatter;
 	.parallax-content {
 		z-index: 2;
 		margin: auto;
-		font-size: 48px;
+		font-size: 36px;
 		color: #7b5ea6;
     background: rgb(249, 244, 218);
     padding: 10px 15px;
@@ -392,7 +399,7 @@ const contact = contactContent.frontmatter;
 		position: fixed;
 		top: 0;
 		width: 100%;
-		background: rgba(27, 38, 44, 0.45);
+		background: rgba(27, 38, 44, 0.8);
 		backdrop-filter: blur(10px);
 		z-index: 1000;
 		transition: all 0.3s ease;
@@ -419,7 +426,7 @@ const contact = contactContent.frontmatter;
 		color: rgb(249, 244, 218);
 		text-decoration: none;
 		font-family: "Poppins", sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 		transition: all 0.3s ease;
 		position: relative;
 	}
@@ -436,7 +443,7 @@ const contact = contactContent.frontmatter;
 		left: 0;
 		width: 0;
 		height: 3px;
-		background: #fcba28;
+		background: #f38ba2;
 		transition: width 0.3s ease;
 	}
 
@@ -503,6 +510,10 @@ const contact = contactContent.frontmatter;
 			background: linear-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.7));
 		}
 
+		.parallax-content {
+			font-size: 24px;
+		}
+
 		.images-section {
 			flex-wrap: wrap;
 		}
@@ -534,7 +545,7 @@ const contact = contactContent.frontmatter;
 		}
 
 		.nav-links a:hover {
-			color: #15aa93;
+			color:rgb(249, 244, 218);
 		}
 
 		.nav-links a:hover::after {
@@ -542,12 +553,12 @@ const contact = contactContent.frontmatter;
 		}
 
 		.nav-links a.active {
-			color: rgb(249, 244, 218);
+			color: #15aa93;
 			background: transparent;
 		}
 
 		.nav-links a.active::after {
-			background: #15aa93;
+			background: #f38ba2;
 		}
 	}
 </style>

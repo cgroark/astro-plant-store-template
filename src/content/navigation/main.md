@@ -1,7 +1,7 @@
 ---
 logo: "/images/monstera-site-logo.png"
 nav_items:
-  - label: "Our Shop"
+  - label: "About"
     href: "#about"
   - label: "Images"
     href: "#images"
