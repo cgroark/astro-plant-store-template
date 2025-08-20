@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {PhoneOutgoingIcon, WhatsappLogoIcon, EnvelopeIcon} from '@phosphor-icons/react';
+import {PhoneOutgoingIcon, EnvelopeIcon} from '@phosphor-icons/react';
 
 // Import all sections
 const heroContent = await import('../content/sections/hero.md');
 const aboutContent = await import('../content/sections/about.md');
-const coachingContent = await import ('../content/sections/coaching.md');
-const methodsContent = await import('../content/sections/methods.md');
+const parallaxContent = await import ('../content/sections/parallax.md');
+const imagesContent = await import('../content/sections/images.md');
 const contactContent = await import('../content/sections/contact.md');
 const footerContent = await import('../content/sections/footer.md');
 const navContent = await import('../content/navigation/main.md');
@@ -14,8 +14,8 @@ const navigation = navContent.frontmatter;
 
 const hero = heroContent.frontmatter;
 const about = aboutContent.frontmatter;
-const coaching = coachingContent.frontmatter;
-const methods = methodsContent.frontmatter;
+const parallax = parallaxContent.frontmatter;
+const images = imagesContent.frontmatter;
 const footer = footerContent.frontmatter;
 const contact = contactContent.frontmatter;
 ---
@@ -38,56 +38,44 @@ const contact = contactContent.frontmatter;
   </nav>
 
   <!-- Hero Section -->
-  <section id="hero" class="hero-section">
+  <section id="hero" class="hero-section section"
+	>
     <div class="hero-title">
 			<h1>{hero.title}</h1>
 			<div>
-				<h2>{hero.subtitle}</h2>
-				<hr>
 				<p>{hero.description}</p>
-				<a
-					class="cta-button hero"
-					href={hero.cta}
-					target="_blank"
-				>
-					{hero.ctaText}
-				</a>
 			</div>
-		</div>
-		<div class="background-cover-image"
-			style={hero.background_image ? `background-image: url(${hero.background_image})`  : ''}
-		>
+			<img src={hero.img} />
 		</div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about-section">
-		<div class="about-title">
-    	<h2>{about.title}</h2>
-			<hr>
-			<div class="about-text">
-				<aboutContent.Content />
+	<section id="about">
+		<!-- About Section -->
+		<section class="about-section section">
+			<div class="about-title">
+				<h2>{about.title}</h2>
+				<div class="about-text">
+					<aboutContent.Content />
+				</div>
 			</div>
-		</div>
-		<div class="about-image"
-			style={about.image ? `background-image: url(${about.image})`  : ''}
+			<img class="about-image" src={about.image} />
+		</section>
+
+		<!-- Parallax Section -->
+		<section  class="parallax-section"
+		style={parallax.image ? `background-image: url(${parallax.image})`  : ''}
 		>
-  </section>
+			<div class="parallax-content">
+				<parallaxContent.Content />
+			</div>
+		</section>
+	</section>
 
-	<!-- Coaching Section -->
-  <section id="coaching" class="coaching-section"
-	 style={coaching.image ? `background-image: url(${coaching.image})`  : ''}
-	>
-		<div class="coaching-content">
-			<coachingContent.Content />
-		</div>
-  </section>
-
-	<!-- Methods Section -->
-  <section id="methods" class="methods-section">
-		{methods.method_items.map(item => (
-			<div class="method-part">
-				<div class="methods-image"
+	<!-- Images Section -->
+  <section id="images" class="images-section section">
+		{images.image_items.map(item => (
+			<div class="image-part">
+				<div class="images-image"
 					style={item.image ? `background-image: url(${item.image})`  : ''}
 					>
 				</div>
@@ -98,19 +86,12 @@ const contact = contactContent.frontmatter;
   </section>
 
 	<!-- Contact Section -->
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section section">
 		<h2>{contact.title}</h2>
-		<hr>
 		<div class="contact-content">
 			<div>
 				<a href="tel:{contact.phone}">
 					<PhoneOutgoingIcon size={32} />
-					{contact.phoneString}
-				</a>
-			</div>
-			<div>
-				<a href="tel:{contact.phone}">
-					<WhatsappLogoIcon size={32} />
 					{contact.phoneString}
 				</a>
 			</div>
@@ -176,60 +157,85 @@ const contact = contactContent.frontmatter;
 
 
 <style>
-	.hero-section {
-		background: #1b262c;
-		display: flex;
+
+	.hero-section, .about-section, .images-section, .contact-section {
+		padding: 100px 50px;
+		background-color: #231f20;
 	}
 
 	.hero-title {
 		color: rgb(249, 244, 218);
-		padding: 60px 50px 20px;
-		width: 28%;
-		z-index: 2;
+		text-align: center;
+		padding: 50px 30px;
+		max-width: 460px;
+		margin: auto ;
+		border: solid 4px #fcba28;
+		background-color: #7b5ea6;
+		border-radius: 10px;
+		box-shadow: 8px 8px 0 #15aa93;
 	}
 
 	h1 {
 		font-size: 54px;
 		color: rgb(249, 244, 218);
 		white-space: nowrap;
-		margin-bottom: 30px;
+		margin-bottom: 10px;
 	}
 
-	.hero-title h2, .about-title h2 {
-		font-size: 42px;
-		white-space: nowrap;
+	.hero-title p {
+		color: #7b5ea6;
+    background: rgb(249, 244, 218);
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-top: 20px;
 	}
 
-	.hero-title hr, .about-title hr {
-		height: 6px;
-		background: #4682b4;
-		border: #4682b4;
-		margin: 20px 85px 20px 0;
+	.hero-title img {
+		max-width: 70px;
+		margin-top: 30px;
 	}
 
-	.hero-title div {
+	.cta-button {
+		display: block;
+		margin: 40px auto;
+		background: #15aa93;
+		border: solid 2px transparent;
+		padding: 10px 15px;
+		color: #231f20;
+		text-decoration: none;
+		display: block;
+		margin: 20px auto;
+		width: fit-content;
+		border-radius: 5px;
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		height: 85%;
+		align-items: center;
+		gap: 5px;
+		transition: background 0.3s ease-in-out, border 0.3s ease-in-out, color 0.3s ease-in-out;
 	}
 
-	.background-cover-image {
-		width: 72%;
-		background-size: cover;
-		background-position: 40% center;
-		background-repeat: no-repeat;
-		min-height: 500px;
+	.cta-button:hover {
+		background: #0c7565;
+		border: solid 2px rgb(249, 244, 218);
+		color: rgb(249, 244, 218);
 	}
 
-	.about-section, .methods-section {
+	.about-section, .images-section {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
-		align-items: stretch;
+		align-items: center;
 		gap: 10px;
-		background-color: #1c3549;
+		border-top: solid 10px #7b5ea6;
 		color: rgb(249, 244, 218);
 		padding: 70px 50px;
+	}
+
+	.about-title h2 {
+		font-size: 42px;
+		white-space: nowrap;
+		padding-bottom: 20px;
+		border-bottom: 4px solid #15aa93;
+		margin-bottom: 20px;
 	}
 
 	.about-title {
@@ -237,87 +243,91 @@ const contact = contactContent.frontmatter;
 	}
 
 	.about-image {
-		width: 50%;
-		background-size: cover;
-		background-position: 40% center;
-		background-repeat: no-repeat;
+		border: solid 4px #fcba28;
+		border-radius: 10px;
+		box-shadow: 8px 8px 0 #7b5ea6;
+		max-width: 410px;
+    width: 100%;
+    margin: 0 auto 50px;
 	}
 
-	.coaching-section {
+	.parallax-section {
+		border-top: solid 10px #7b5ea6;
 		position: relative;
 		padding: 50px;
 		background-size: cover;
 		background-position: 40% center;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
-		min-height: 50vh;
+		min-height: 70vh;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		min-height: 70vh;
 	}
 
-	.coaching-section::before {
+	.parallax-section::before {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 20%, transparent 100%);
 		z-index: 1;
 	}
 
-	.coaching-content {
-		position: relative;
+	.parallax-content {
 		z-index: 2;
-		max-width: 460px;
-		color: rgb(249, 244, 218);
+		margin: auto;
+		font-size: 48px;
+		color: #7b5ea6;
+    background: rgb(249, 244, 218);
+    padding: 10px 15px;
+    border-radius: 10px;
+		border: solid 4px #fcba28;
+		box-shadow: 8px 8px 0 #15aa93;
 	}
 
-	.method-part {
+	.image-part {
 		text-align: center;
 		width: 31%;
 	}
 
-	.method-part h3 {
+	.image-part h3 {
 		margin-bottom: 10px;
 	}
 
-	.methods-image {
+	.images-image {
 		background-size: cover;
 		background-position: 40% center;
 		background-repeat: no-repeat;
-		height: 128px;
-		width: 128px;
-		border-radius: 50%;
+		height: 278px;
+		width: 278px;
 		margin: auto;
 		margin-bottom: 25px;
 		transition: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+		border: solid 4px #fcba28;
+		border-radius: 10px;
+		box-shadow: 8px 8px 0 #7b5ea6;
 	}
 
-	.methods-image:hover {
+	.images-image:hover {
 		transform: scale(1.1);
 	}
 
 	.contact-section {
-		padding: 70px 20px 50px 20px;
-		background-color: #1b262c;
-		min-height: 80vh;
+		border-top: solid 10px #7b5ea6;
+		min-height: 60vh;
 	}
 
 	.contact-section h2 {
-		font-size: 36px;
 		text-align: center;
 		color: rgb(249, 244, 218);
-	}
-
-	.contact-section hr {
-		height: 6px;
-		background: #4682b4;
-		border: #4682b4;
-		width: 30%;
-		margin: 25px auto;
+		font-size: 42px;
+		padding-bottom: 20px;
+		border-bottom: 4px solid #fcba28;
+		width: fit-content;
+		margin: 20px auto;
 	}
 
 	.contact-content {
@@ -350,7 +360,7 @@ const contact = contactContent.frontmatter;
 		left: 0;
 		width: 0;
 		height: 2px;
-		background: #4682b4;
+		background: #fcba28;
 		transition: width 0.3s ease;
 	}
 
@@ -358,33 +368,8 @@ const contact = contactContent.frontmatter;
 		width: 100%;
 	}
 
-	.cta-button {
-		background: #4682b4;
-		border: solid 2px transparent;
-		padding: 10px 10px;
-		color: rgb(249, 244, 218);
-		text-decoration: none;
-		display: block;
-		margin: 20px auto;
-		width: fit-content;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		gap: 5px;
-		transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
-	}
-
-	.cta-button:hover {
-		background: #23435e;
-		border: solid 2px rgb(249, 244, 218);
-	}
-
-	.cta-button.hero {
-		margin: 40px 0;
-	}
-
 	.footer-section {
-		background-color: #1b262c;
+		background-color: #231f20;
 		color: rgb(249, 244, 218);
 		padding: 20px;
 		text-align: center;
@@ -431,17 +416,17 @@ const contact = contactContent.frontmatter;
 	}
 
 	.nav-links a {
-		color: #4682b4;
+		color: rgb(249, 244, 218);
 		text-decoration: none;
-		font-family: 'Open Sans', sans-serif;
-		font-weight: 600;
+		font-family: "Poppins", sans-serif;
+    font-weight: 300;
 		transition: all 0.3s ease;
 		position: relative;
 	}
 
 	.nav-links a:hover,
 	.nav-links a.active {
-		color: rgb(249, 244, 218);
+		color: #15aa93;
 	}
 
 	.nav-links a::after {
@@ -450,8 +435,8 @@ const contact = contactContent.frontmatter;
 		bottom: -5px;
 		left: 0;
 		width: 0;
-		height: 2px;
-		background: #4682b4;
+		height: 3px;
+		background: #fcba28;
 		transition: width 0.3s ease;
 	}
 
@@ -471,13 +456,14 @@ const contact = contactContent.frontmatter;
 	}
 
 	@media (max-width: 768px) {
-		.hero-section {
-			min-height: 100vh;
+
+		.section {
+			padding: 50px 20px;
 		}
 
-		.hero-title {
-			width: 90%;
-			padding: 60px 20px;
+		.hero-section {
+			min-height: 100vh;
+			padding-top: 120px;
 		}
 
 		.hero-title h1 {
@@ -489,22 +475,13 @@ const contact = contactContent.frontmatter;
 			white-space: normal;
 		}
 
-		.background-cover-image {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 66%;
-			height: 100%;
-			min-height: 100vh;
-		}
-
-		.about-section {
-			padding: 0 0 0 20px;
+		.hero-section p {
+			font-size: 16px;
 		}
 
 		.about-title {
 			padding: 50px 10px;
-			width: 90%;
+			width: 100%;
 		}
 
 		.about-text {
@@ -512,35 +489,35 @@ const contact = contactContent.frontmatter;
 		}
 
 		.about-image {
-			min-height: 60vh;
+			max-width: unset;
 		}
 
-		.coaching-section {
+		.parallax-section {
 			background-attachment: scroll; /* fallback */
 			background-position: center;
 			background-size: cover;
 			height: 100vh;
 		}
 
-		.coaching-section::before {
+		.parallax-section::before {
 			background: linear-gradient(rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.7));
 		}
 
-		.methods-section {
+		.images-section {
 			flex-wrap: wrap;
 		}
 
-		.method-part {
+		.image-part {
 			width: 100%;
 			margin-bottom: 40px;
 		}
 
-		.method-part p {
+		.image-part p {
 			font-size: 16px;
 		}
 
 		.contact-section {
-			height: 100vh;
+			height: 50vh;
 		}
 
 		.contact-content {
@@ -548,7 +525,8 @@ const contact = contactContent.frontmatter;
 		}
 
 		.nav-container {
-			padding: 10px 20px ;
+			padding: 10px 20px;
+			justify-content: space-evenly;
 		}
 
 		.nav-links a {
@@ -556,7 +534,7 @@ const contact = contactContent.frontmatter;
 		}
 
 		.nav-links a:hover {
-			color: #4682b4;
+			color: #15aa93;
 		}
 
 		.nav-links a:hover::after {
@@ -569,9 +547,7 @@ const contact = contactContent.frontmatter;
 		}
 
 		.nav-links a.active::after {
-			background: #4682b4;
+			background: #15aa93;
 		}
-
-
 	}
 </style>

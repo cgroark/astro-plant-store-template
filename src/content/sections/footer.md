@@ -1,5 +1,5 @@
 ---
-title: "TM Coaching"
+title: "Plant Shop"
 copyright: "Copyright © 2025 All Rights Reserved"
 owner: "Built by Colin Groark"
 ownerSite: "colingroark.com"

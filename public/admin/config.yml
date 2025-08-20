@@ -19,6 +19,7 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - { label: "Image", name: "img", widget: "image"}
           - { label: "Description", name: "description", widget: "string" }
           - { label: "Background Image", name: "background_image", widget: "image", required: false }
 
@@ -30,19 +31,19 @@ collections:
           - { label: "Content", name: "body", widget: "markdown" }
           - { label: "Image", name: "image", widget: "image", required: false }
 
-      - label: "Coaching Section"
-        name: "coaching"
-        file: "src/content/sections/coaching.md"
+      - label: "Parallax Section"
+        name: "parallax"
+        file: "src/content/sections/parallax.md"
         fields:
           - { label: "Content", name: "body", widget: "markdown" }
           - { label: "Background Image", name: "image", widget: "image", required: false }
 
-      - label: "Methods Section"
-        name: "methods"
-        file: "src/content/sections/methods.md"
+      - label: "Images Section"
+        name: "images"
+        file: "src/content/sections/images.md"
         fields:
-        - label: "Method Items"
-          name: "method_items"
+        - label: "Image Items"
+          name: "image_items"
           widget: "list"
           fields:
             - {label: "Title", name: "title", widget: "string"}

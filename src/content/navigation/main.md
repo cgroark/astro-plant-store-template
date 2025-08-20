@@ -1,10 +1,10 @@
 ---
-logo: "/images/tm-logo-white.png"
+logo: "/images/monstera-site-logo.png"
 nav_items:
-  - label: "About"
+  - label: "Our Shop"
     href: "#about"
-  - label: "Methods"
-    href: "#methods"
+  - label: "Images"
+    href: "#images"
   - label: "Contact"
     href: "#contact"
 ---
