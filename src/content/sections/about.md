@@ -1,8 +1,8 @@
 ---
-title: "Our Shop"
-image: "/images/monstera-hands.jpg"
+title: Our Shop
+image: /images/monstera-hands.jpg
 ---
-Opening our doors in 2014, we've been the place for urban houseplants in Seattle and Portland for over 10 years.
+Opening our doors in 2017, we've been the place for urban houseplants in Seattle and Portland for over 10 years.
 
 <br>
 
